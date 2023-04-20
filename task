@@ -1,0 +1,70 @@
+rom tkinter import *
+import tkinter.font as FONT
+import RPi.GPIO as GPIO
+from gpiozero import LED
+
+GPIO.setmode(GPIO.BCM)
+
+redLED = LED(12)
+greenLED = LED(7)
+blueLED = LED(8)
+
+win =Tk()
+win.title("LED CONTROLLER")
+myFont = FONT.Font(family = 'Helvetica',size = 14, weight = 'bold')
+
+def redLedToggle():
+        if redLED.is_lit:
+                redLED.off()
+                redLedButton["text"]= "TURN RED LED ON"
+        else:
+                redLED.on()
+                redLedButton["text"]="TURN RED LED OFF"
+                greenLED.off()
+                greenLedButton["text"]="TURN GREEN LED ON"
+                blueLED.off()
+                blueLedButton["text"]="TURN BLUE LED ON" 
+def greenLedToggle():
+        if greenLED.is_lit:
+                greenLED.off()
+                greenLedButton["text"]="TURN  GREEN LED ON"
+        else:
+                greenLED.on()
+                greenLedButton["text"]="TURN GREEEN LED ON"
+                redLED.off()
+                redLedButton["text"]="TURN RED LED ON"
+                blueLED.on()
+                blueLedButton["text"]="TURN BLUE LED ON"
+                
+def blueLedToggle():
+        if blueLED.is_lit:
+                blueLED.off()
+                blueLedButton["text"]="TURN BLUE LED ON"
+        else:
+                blueLED.on()
+                blueLedButton["text"]="TURN BLUE LED ON"
+                redLED.off()
+                redLedButton["text"]="TURN BLUE LED ON"
+                greenLED.off()
+                greenLedButton["text"]="TURN GREEN LED ON"
+
+def close():
+        GPIO.cleanup()
+        win.destroy()
+
+redLedButton = Button(win, text = 'TURN RED LED ON' , font = myFont, command = redLedToggle, bg = 'red',height = 2, width=30)
+redLedButton.grid(row = 0, column =1)
+
+greenLedButton = Button(win, text = 'TURN GREEN LED ON', font = myFont, command = greenLedToggle, bg ='green',height = 2, wid>
+greenLedButton.grid(row=1, column=1)
+
+blueLedButton = Button(win,text = 'TURN BLUE LED ON', font = myFont, command = blueLedToggle, bg = 'blue', height = 2, width=>
+blueLedButton.grid(row=2, column=1)
+
+exitButton = Button(win, text = 'EXIT', font = myFont, command  = close, bg = 'bisque2', height = 2, width= 15)
+exitButton.grid(row = 1,column = 2)
+
+win.protocol("WM_DELETE_WINDOW", close) #exit cleanly
+win.mainloop() #loop forever
+
+
